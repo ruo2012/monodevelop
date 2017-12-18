@@ -17,8 +17,8 @@ DEP[0]=md-addins
 DEP_NAME[0]=MDADDINS
 DEP_PATH[0]=${top_srcdir}/../md-addins
 DEP_MODULE[0]=git@github.com:xamarin/md-addins.git
-DEP_NEEDED_VERSION[0]=8e00664e22198ba986db7de2f200c47326e84ff9
-DEP_BRANCH_AND_REMOTE[0]="master origin/master"
+DEP_NEEDED_VERSION[0]=65927fb29132d4095f9a51ed7f66cd875c5fc3b4
+DEP_BRANCH_AND_REMOTE[0]="android-acceleration-warnings origin/android-acceleration-warnings"
 
 # heap-shot
 DEP[1]=heap-shot
