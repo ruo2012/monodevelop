@@ -17,7 +17,7 @@ DEP[0]=md-addins
 DEP_NAME[0]=MDADDINS
 DEP_PATH[0]=${top_srcdir}/../md-addins
 DEP_MODULE[0]=git@github.com:xamarin/md-addins.git
-DEP_NEEDED_VERSION[0]=68e2b3cdf3d48d1d7899b8a6a2ea61979efc3c60
+DEP_NEEDED_VERSION[0]=27fd1cc3d72ed415195b3fd0f90f68a37a055172
 DEP_BRANCH_AND_REMOTE[0]="d15-6-fix-android-sdk-duplicates origin/d15-6-fix-android-sdk-duplicates"
 
 # heap-shot
