@@ -199,7 +199,7 @@ namespace MonoDevelop.CodeIssues
 					if (!diagnosticTable [data.Id].IsEnabled)
 						continue;
 					
-					var diagnostic = await data.ToDiagnosticAsync (analysisDocument, cancellationToken);
+					var diagnostic = await data.ToDiagnosticAsync (analysisDocument, cancellationToken).ConfigureAwait (false);
 					resultList.Add (new DiagnosticResult (diagnostic));
 				}
 				return resultList;
