@@ -75,6 +75,9 @@ namespace MonoDevelop.CodeIssues
 					if (data.Id.StartsWith ("CS", StringComparison.Ordinal))
 						continue;
 
+					if (data.IsSuppressed)
+						continue;
+
 					if (DataHasTag (data, WellKnownDiagnosticTags.EditAndContinue))
 						continue;
 
