@@ -169,6 +169,12 @@ namespace MonoDevelop.MacIntegration
 				};
 			}
 
+			// Listen to the AtkCocoa notification for the presence of VoiceOver
+			var nc = NSNotificationCenter.DefaultCenter;
+			nc.AddObserver ((NSString)"AtkCocoaAccessibilityEnabled", (NSNotification) => {
+				Console.WriteLine ("VoiceOver is active");
+			}, NSApplication.SharedApplication);
+
 			// Now that Cocoa has been initialized we can check whether the keyboard focus mode is turned on
 			// See System Preferences - Keyboard - Shortcuts - Full Keyboard Access
 			var keyboardMode = NSUserDefaults.StandardUserDefaults.IntForKey ("AppleKeyboardUIMode");
