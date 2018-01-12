@@ -9,7 +9,7 @@ ARTIFACTS=$(top_srcdir)/../../artifacts
 MD_CONFIGURE=$(top_srcdir)/../scripts/configure.sh
 EXTERNAL=../../external
 MONOSTUB_DEFINES=-DXM_REGISTRAR
-MONOSTUB_STATIC_LINK=$(EXTERNAL)/Xamarin.Mac.registrar.full.a
+MONOSTUB_STATIC_LINK=../asdf.a
 EXTERN_C_XM_REGISTRAR_DEFINE=$(shell ./check-xm-extern.sh)
 
 #SDK_PATH=$(shell xcrun --sdk macosx10.8 --show-sdk-path)
@@ -33,10 +33,13 @@ dmg: render.exe app
 
 System_Native.o: System_Native.cpp
 	g++ -std=c++14 -c -Wall -mmacosx-version-min=10.10 -o $@ $<
-monostub.o: monostub.mm $(MONOSTUB_EXTRA_SOURCES) $(MONOSTUB_STATIC_LINK)
-	g++ $(EXTERN_C_XM_REGISTRAR_DEFINE) $(MONOSTUB_DEFINES) -c -Wall -mmacosx-version-min=10.10 -m$(MONOSTUB_ARCH) -o $@ $<
+
+monostub.o: monostub.mm asdf.mm $(MONOSTUB_EXTRA_SOURCES)
+	xcrun -sdk macosx clang -x objective-c++ $(EXTERN_C_XM_REGISTRAR_DEFINE) $(MONOSTUB_DEFINES) -Wall -mmacosx-version-min=10.10 -m$(MONOSTUB_ARCH) -framework CoreFoundation -framework AppKit -I/Library/Frameworks/Xamarin.Mac.framework/Versions/Current/include -fobjc-runtime=macosx -o $@ $<
+
 monostub:  monostub.o System_Native.o
-	clang++ -Wall -mmacosx-version-min=10.10 -m$(MONOSTUB_ARCH) -o $@ $^ -framework AppKit -framework Quartz $(MONOSTUB_STATIC_LINK) -undefined dynamic_lookup
+	clang++ -Wall -mmacosx-version-min=10.10 -m$(MONOSTUB_ARCH) -o $@ $^ -framework AppKit -framework Quartz -framework CoreFoundation $(MONOSTUB_STATIC_LINK) -undefined dynamic_lookup
+
 #	gcc -Wall -mmacosx-version-min=10.10 -m$(MONOSTUB_ARCH) -o $@ monostub.m -framework AppKit -isysroot $(SDK_PATH)
 	cp monostub ../bin/MonoDevelop
 	cp monostub ../bin/mdtool

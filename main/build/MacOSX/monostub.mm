@@ -25,7 +25,7 @@ extern
 #if EXTERN_C
 "C"
 #endif
-int xamarin_create_classes_Xamarin_Mac ();
+int xamarin_create_classes ();
 
 void *libmono, *libxammac;
 
@@ -369,7 +369,7 @@ int main (int argc, char **argv)
 		}
 	}
 
-	xamarin_create_classes_Xamarin_Mac ();
+	xamarin_create_classes ();
 #endif
 
 	try_load_gobject_tracker (libmono, argv [0]);
