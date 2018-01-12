@@ -27,7 +27,7 @@ extern
 #endif
 int xamarin_create_classes ();
 
-void *libmono, *libxammac;
+void *libmono;
 
 static void
 exit_with_message (const char *reason, char *argv0)
@@ -359,16 +359,6 @@ int main (int argc, char **argv)
 	}
 
 #if XM_REGISTRAR
-	libxammac = dlopen ("@loader_path/libxammac.dylib", RTLD_LAZY);
-	if (!libxammac) {
-		libxammac = dlopen ("@loader_path/../Resources/lib/monodevelop/bin/libxammac.dylib", RTLD_LAZY);
-		if (!libxammac) {
-			fprintf (stderr, "Failed to load libxammac.dylib: %s\n", dlerror ());
-			NSString *msg = @"This application requires Xamarin.Mac native library side-by-side.";
-			exit_with_message ((char *)[msg UTF8String], argv[0]);
-		}
-	}
-
 	xamarin_create_classes ();
 #endif
 

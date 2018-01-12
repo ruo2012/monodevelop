@@ -41,7 +41,10 @@ asdf.o: asdf.mm
 	xcrun -sdk macosx clang -x objective-c++ -c $(EXTERN_C_XM_REGISTRAR_DEFINE) $(MONOSTUB_DEFINES) -Wall -mmacosx-version-min=10.10 -m$(MONOSTUB_ARCH) -I/Library/Frameworks/Xamarin.Mac.framework/Versions/Current/include -fobjc-runtime=macosx -o $@ $<
 
 monostub:  monostub.o System_Native.o asdf.o
-	clang++ -Wall -mmacosx-version-min=10.10 -m$(MONOSTUB_ARCH) -o $@ $^ -framework AppKit -framework Quartz -framework CoreFoundation
+	clang++ -Wall -mmacosx-version-min=10.10 -m$(MONOSTUB_ARCH) -o $@ $^ -L../../external/ -lxammac -framework AppKit -framework Quartz -framework CoreFoundation -framework WebKit -framework Mono
+	install_name_tool -change libxammac.dylib @rpath/libxammac.dylib monostub
+	install_name_tool -add_rpath @loader_path monostub
+	install_name_tool -add_rpath @loader_path/../Resources/lib/monodevelop/bin/libxammac.dylib monostub
 
 #	gcc -Wall -mmacosx-version-min=10.10 -m$(MONOSTUB_ARCH) -o $@ monostub.m -framework AppKit -isysroot $(SDK_PATH)
 	cp monostub ../bin/MonoDevelop
